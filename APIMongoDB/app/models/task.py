@@ -3,7 +3,6 @@ class Task:
         self.id = task_id
         self.title = title
         self.description = description
-        self.variant = variant
 
     @staticmethod
     def from_dict(task_dict):

@@ -1,4 +1,8 @@
 from pymongo import MongoClient
+from bson.objectid import ObjectId
+from dto.task_dto import TaskDTO
+from models.task import Task
+
 
 class TaskRepository:
     def __init__(self):
@@ -15,8 +19,10 @@ class TaskRepository:
         return serialized_tasks
 
     def get_task_by_id(self, task_id):
-        task = self.tasks_collection.find_one({"_id": task_id})
-        return task
+        task = self.tasks_collection.find_one({"_id": ObjectId(task_id)})
+        if task:
+            return TaskDTO.from_model(Task(**task))
+        return None
 
     def create_task(self, task_data):
         result = self.tasks_collection.insert_one(task_data)
@@ -29,7 +35,6 @@ class TaskRepository:
                 return True
             return False
         return None
-
 
     def delete_task(self, task_id):
         result = self.tasks_collection.delete_one({"_id": task_id})

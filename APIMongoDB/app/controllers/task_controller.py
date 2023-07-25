@@ -1,5 +1,6 @@
 from flask import request
 from repositories.task_repository import TaskRepository
+from dto.task_dto import TaskDTO
 
 
 class TaskController:
@@ -13,12 +14,13 @@ class TaskController:
     def get_task(self, task_id):
         task = self.task_repository.get_task_by_id(task_id)
         if task:
-            return task
+            return task.to_dict()
         return {"error": "Task not found."}, 404
 
     def create_task(self):
         task_data = request.json
         inserted_id = self.task_repository.create_task(task_data)
+        print(inserted_id)
         return {"inserted_id": inserted_id}, 201
 
     def update_task(self, task_id):

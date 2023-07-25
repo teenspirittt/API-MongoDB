@@ -113,8 +113,7 @@ class TaskApiTest(unittest.TestCase):
     
     def test_11_create_task(self):
         task_data = {
-            '_id' : '1',
-            'title': 'New Task',
+            'title': 'TASK without id',
             'description': 'Task description'
         }
         response = requests.post(self.BASE_URL, json=task_data)
@@ -122,6 +121,8 @@ class TaskApiTest(unittest.TestCase):
         result = response.json()
         self.assertIsInstance(result, dict)
         self.assertIn('inserted_id', result)
+
+
 
 if __name__ == '__main__':
     unittest.main()

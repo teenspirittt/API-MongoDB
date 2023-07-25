@@ -1,0 +1,201 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "API для управления задачами",
+      "version": "1.0.0",
+      "title": "Task API"
+    },
+    "paths": {
+      "/api/tasks": {
+        "get": {
+          "summary": "Получить список всех задач",
+          "responses": {
+            "200": {
+              "description": "Успешный запрос",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "ID задачи"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Заголовок задачи"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Описание задачи"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Ошибка сервера"
+            }
+          }
+        },
+        "post": {
+          "summary": "Создать новую задачу",
+          "parameters": [
+            {
+              "name": "task_data",
+              "in": "body",
+              "required": true,
+              "description": "Данные для создания задачи",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Заголовок задачи"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Описание задачи"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Задача успешно создана",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "inserted_id": {
+                    "type": "string",
+                    "description": "ID созданной задачи"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Ошибка сервера"
+            }
+          }
+        }
+      },
+      "/api/tasks/{task_id}": {
+        "get": {
+          "summary": "Получить задачу по ID",
+          "parameters": [
+            {
+              "name": "task_id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "ID задачи"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Успешный запрос",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "ID задачи"
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Заголовок задачи"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Описание задачи"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Задание не найдено"
+            }
+          }
+        },
+        "put": {
+          "summary": "Обновить задачу по ID",
+          "parameters": [
+            {
+              "name": "task_id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "ID задачи"
+            },
+            {
+              "name": "task_data",
+              "in": "body",
+              "required": true,
+              "description": "Данные для обновления задачи",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Заголовок задачи"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Описание задачи"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Задача успешно обновлена",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Сообщение об успешном обновлении задачи"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Задание не найдено"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Удалить задачу по ID",
+          "parameters": [
+            {
+              "name": "task_id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "ID задачи"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Задача успешно удалена",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Сообщение об успешном удалении задачи"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Задание не найдено"
+            }
+          }
+        }
+      }
+    }
+  }
+  
