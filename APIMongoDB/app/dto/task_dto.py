@@ -1,3 +1,5 @@
+from bson import ObjectId
+
 class TaskDTO:
     def __init__(self, task_id, title, description):
         self.id = task_id
@@ -18,6 +20,7 @@ class TaskDTO:
     @staticmethod
     def from_dict(task_dict):
         task_id = task_dict.get('_id')
+        task_id = ObjectId(task_id)
         title = task_dict.get('title')
         description = task_dict.get('description')
         return TaskDTO(task_id, title, description)

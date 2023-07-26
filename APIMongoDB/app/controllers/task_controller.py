@@ -14,23 +14,20 @@ class TaskController:
         return jsonify([task.to_dict() for task in tasks])
 
     def get_task(self, task_id):
-     
-        task = self.task_repository.get_task_by_id(task_id)
+        task_id_obj = ObjectId(task_id)
+
+        task = self.task_repository.get_task_by_id(task_id_obj)
 
         if task:
             return task.to_dict()
         else:
-            return {"error": "Task not found."}, 404
+            return {"error": f"Task not found. {task_id_obj} "}, 404
     
 
     def create_task(self):
         task_data = request.json
-        try:
-            inserted_id = self.task_repository.create_task(task_data)
-            task = self.task_repository.get_task_by_id(inserted_id)
-            return task.to_dict(), 201
-        except Exception as e:
-            return {"error": str(e)}, 500
+        inserted_id = self.task_repository.create_task(task_data)
+        return {"id": inserted_id}, 201
 
     def update_task(self, task_id):
         task_data = request.json
