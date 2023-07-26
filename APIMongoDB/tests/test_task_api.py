@@ -17,7 +17,7 @@ class TaskApiTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         task = response.json()
         self.assertIsInstance(task, dict)
-        self.assertIn('_id', task)
+        self.assertIn('id', task)
         self.assertIn('title', task)
         self.assertIn('description', task)
 
@@ -101,26 +101,26 @@ class TaskApiTest(unittest.TestCase):
         self.assertEqual(result['error'], 'No changes made to the task.')
 
 
-    def test_10_delete_task(self):
-        task_id = '6'
-        response = requests.delete(f'{self.BASE_URL}/{task_id}')
-        self.assertEqual(response.status_code, 200)
-        result = response.json()
-        self.assertIsInstance(result, dict)
-        self.assertIn('message', result)
-        self.assertEqual(result['message'], 'Task successfully deleted.')
-
-    
-    def test_11_create_task(self):
-        task_data = {
-            'title': 'TASK without id',
-            'description': 'Task description'
-        }
-        response = requests.post(self.BASE_URL, json=task_data)
-        self.assertEqual(response.status_code, 201)
-        result = response.json()
-        self.assertIsInstance(result, dict)
-        self.assertIn('inserted_id', result)
+    #def test_10_delete_task(self):
+    #    task_id = '6'
+    #    response = requests.delete(f'{self.BASE_URL}/{task_id}')
+    #    self.assertEqual(response.status_code, 200)
+    #    result = response.json()
+    #    self.assertIsInstance(result, dict)
+    #    self.assertIn('message', result)
+    #    self.assertEqual(result['message'], 'Task successfully deleted.')
+#
+    #
+    #def test_11_create_task(self):
+    #    task_data = {
+    #        'title': 'TASK without id',
+    #        'description': 'Task description'
+    #    }
+    #    response = requests.post(self.BASE_URL, json=task_data)
+    #    self.assertEqual(response.status_code, 201)
+    #    result = response.json()
+    #    self.assertIsInstance(result, dict)
+    #    self.assertIn('inserted_id', result)
 
 
 

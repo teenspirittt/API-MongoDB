@@ -2,7 +2,8 @@ from flask import request, jsonify
 from repositories.task_repository import TaskRepository
 from dto.task_dto import TaskDTO
 import bson
-from bson import errors, ObjectId
+from bson import ObjectId
+from bson.objectid import ObjectId
 
 class TaskController:
     def __init__(self):
@@ -13,14 +14,14 @@ class TaskController:
         return jsonify([task.to_dict() for task in tasks])
 
     def get_task(self, task_id):
-        try:
-            task_id = ObjectId(task_id)
-            task = self.task_repository.get_task_by_id(task_id)
-            if task:
-                return task.to_dict()
+     
+        task = self.task_repository.get_task_by_id(task_id)
+
+        if task:
+            return task.to_dict()
+        else:
             return {"error": "Task not found."}, 404
-        except errors.InvalidId as e:
-            return {"error": "Invalid id format."}, 400
+    
 
     def create_task(self):
         task_data = request.json

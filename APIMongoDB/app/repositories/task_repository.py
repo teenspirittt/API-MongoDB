@@ -11,10 +11,10 @@ class TaskRepository:
 
     def get_all_tasks(self):
         tasks = list(self.tasks_collection.find())
-        return [TaskDTO.from_dict(task) for task in tasks]
+        return [TaskDTO(task['_id'], task['title'], task['description']) for task in tasks]
 
     def get_task_by_id(self, task_id):
-        task = self.tasks_collection.find_one({"_id": ObjectId(task_id)})
+        task = self.tasks_collection.find_one({"_id": task_id})
         if task:
             return TaskDTO.from_dict(task)
         return None
