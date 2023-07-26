@@ -1,12 +1,12 @@
 class TaskDTO:
     def __init__(self, task_id, title, description):
-        self.id = task_id
+        self.id = str(task_id)  # Преобразуем ObjectId в строку
         self.title = title
         self.description = description
 
     @classmethod
-    def from_model(cls, task_model):
-        return cls(task_model.id, task_model.title, task_model.description)
+    def from_dict(cls, task_dict):
+        return cls(task_dict['_id'], task_dict['title'], task_dict['description'])
 
     def to_dict(self):
         return {
@@ -14,5 +14,3 @@ class TaskDTO:
             'title': self.title,
             'description': self.description
         }
-
-

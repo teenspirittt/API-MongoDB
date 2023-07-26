@@ -10,10 +10,6 @@ def create_app():
     app.register_blueprint(task_bp, url_prefix='/api')
     return app
 
-
-
-
-
 app = create_app()
 
 SWAGGER_URL = '/swagger'
